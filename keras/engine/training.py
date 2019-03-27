@@ -5,7 +5,6 @@ from __future__ import division
 from __future__ import print_function
 
 import warnings
-import copy
 import numpy as np
 
 from .network import Network
@@ -1154,10 +1153,10 @@ class Model(Network):
         if do_validation:
             self._make_test_function()
             val_function = self.test_function
-            callback_metrics = copy.copy(out_labels) + [
+            callback_metrics = out_labels[:] + [
                 'val_' + n for n in out_labels]
         else:
-            callback_metrics = copy.copy(out_labels)
+            callback_metrics = out_labels[:]
             val_function = None
             val_inputs = []
 

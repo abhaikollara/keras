@@ -6,7 +6,6 @@ from __future__ import print_function
 
 import inspect
 import collections
-import copy
 import numpy as np
 import warnings
 
@@ -337,7 +336,7 @@ def collect_metrics(metrics, output_names):
         return [[] for _ in output_names]
     if isinstance(metrics, list):
         # we then apply all metrics to all outputs.
-        return [copy.copy(metrics) for _ in output_names]
+        return [metrics[:] for _ in output_names]
     elif isinstance(metrics, dict):
         nested_metrics = []
         if not set(metrics.keys()).issubset(set(output_names)):

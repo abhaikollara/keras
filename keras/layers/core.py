@@ -7,7 +7,6 @@ from __future__ import print_function
 
 import numpy as np
 
-import copy
 import types as python_types
 import warnings
 
@@ -444,7 +443,7 @@ class Permute(Layer):
 
     def compute_output_shape(self, input_shape):
         input_shape = list(input_shape)
-        output_shape = copy.copy(input_shape)
+        output_shape = input_shape[:]
         for i, dim in enumerate(self.dims):
             target_dim = input_shape[dim]
             output_shape[i + 1] = target_dim
