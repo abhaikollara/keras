@@ -302,7 +302,6 @@ def predict_loop(model, f, ins,
                     unconcatenated_outs.append([])
             for i, batch_out in enumerate(batch_outs):
                 unconcatenated_outs[i].append(batch_out)
-
             batch_logs['outputs'] = batch_outs
             callbacks._call_batch_hook('predict', 'end', step, batch_logs)
             if verbose == 1:
@@ -431,8 +430,7 @@ def test_loop(model, f, ins,
             batch_outs = f(ins)
             if isinstance(batch_outs, list):
                 if step == 0:
-                    for _ in enumerate(batch_outs):
-                        outs.append(0.)
+                    outs.extend([0.] * len(batch_outs))
                 for i, batch_out in enumerate(batch_outs):
                     if i in stateful_metric_indices:
                         outs[i] = float(batch_out)
@@ -471,8 +469,7 @@ def test_loop(model, f, ins,
             batch_outs = f(ins_batch)
             if isinstance(batch_outs, list):
                 if batch_index == 0:
-                    for batch_out in enumerate(batch_outs):
-                        outs.append(0.)
+                    outs.extend([0.] * len(batch_outs))
                 for i, batch_out in enumerate(batch_outs):
                     if i in stateful_metric_indices:
                         outs[i] = batch_out
